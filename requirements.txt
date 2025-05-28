@@ -1,1 +1,6 @@
 streamlit
+pandas
+numpy
+scikit-surprise
+pymongo
+urllib3
