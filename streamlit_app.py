@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+pip install scikit-surprise
 from surprise import SVD, Dataset, Reader
 from pymongo import MongoClient
 from urllib.parse import quote_plus
