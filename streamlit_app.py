@@ -94,7 +94,7 @@ st.write("Sample Movies from MongoDB:")
 st.dataframe(df_movies[['Series_Title', 'Genre', 'IMDB_Rating']].head())
 
 # User selection dropdown
-user_ids = sorted(df_ratings["userID"].unique())
+user_ids = sorted(df_ratings["userID"].unique(), key=lambda x: int(x.split("_")[1]))
 selected_user = st.selectbox("Select your user:", user_ids)
 
 # When user clicks the button, show recommendations
