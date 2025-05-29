@@ -8,7 +8,6 @@ from sklearn.neighbors import NearestNeighbors
 
 # Load MongoDB URI securely from Streamlit secrets
 uri = st.secrets["MONGODB_URI"]
-st.write("🔍 URI starts with:", uri[:20])
 
 # Load movies from MongoDB and cache the result
 @st.cache_data
