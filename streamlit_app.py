@@ -26,7 +26,7 @@ def load_movies_from_mongo():
 def generate_ratings(df_movies):
     np.random.seed(42)  # For reproducibility
     n_users = 100  # Number of simulated users
-    user_ids = [f"user_{i+1}" for i in range(n_users)]  # e.g., user_1, user_2, ...
+    user_ids = [f"user {i+1}" for i in range(n_users)]  # e.g., user_1, user_2, ...
     ratings_data = []
 
     # Each user randomly rates between 20 and 50 movies
@@ -52,7 +52,7 @@ def recommend_movies_for_user(user_id, df_ratings, df_movies, n_neighbors=5, n_r
     if user_id not in user_item_matrix.index:
         return []
 
-    # Find the k nearest neighbors (excluding the user themself)
+    # Find the k nearest neighbors (excluding the user themselves)
     distances, indices = knn_model.kneighbors([user_item_matrix.loc[user_id]], n_neighbors=n_neighbors+1)
     neighbor_indices = indices.flatten()[1:]  # Skip the first one (it's the user)
     similar_users = user_item_matrix.index[neighbor_indices]
@@ -87,14 +87,10 @@ df_movies = load_movies_from_mongo()
 df_ratings = generate_ratings(df_movies)
 
 # Streamlit App UI
-st.title("🎬 IMDB Movie Recommender (KNN-Based)")
-
-# Show a few example movies from the MongoDB collection
-st.write("Sample Movies from MongoDB:")
-st.dataframe(df_movies[['Series_Title', 'Genre', 'IMDB_Rating']].head())
+st.title("🎬 CineSense: IMDB Movie Recommender")
 
 # User selection dropdown
-user_ids = sorted(df_ratings["userID"].unique(), key=lambda x: int(x.split("_")[1]))
+user_ids = sorted(df_ratings["userID"].unique(), key=lambda x: int(x.split(" ")[1]))
 selected_user = st.selectbox("Select your user:", user_ids)
 
 # When user clicks the button, show recommendations
