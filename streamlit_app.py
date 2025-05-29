@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from pymongo import MongoClient
-from urllib.parse import quote_plus
+# from urllib.parse import quote_plus
 from collections import defaultdict
 from sklearn.neighbors import NearestNeighbors
 
 # Load MongoDB URI securely from Streamlit secrets
 uri = st.secrets["MONGODB_URI"]
+st.write("🔍 URI starts with:", uri[:20])
 
 # Load movies from MongoDB and cache the result
 @st.cache_data
