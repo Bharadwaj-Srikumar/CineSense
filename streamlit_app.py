@@ -25,7 +25,7 @@ def load_movielens_from_mongo():
 # Generate movie recommendations for a selected user using K-Nearest Neighbors
 def recommend_movies_for_user(user_id, df_ratings, df_movies, n_neighbors=5, n_recommendations=5):
     # Create a user-item rating matrix with users as rows, movies as columns
-    user_item_matrix = df_ratings.pivot_table(index='userId', columns='movieId', values='rating').fillna(0)
+    user_item_matrix = df_ratings.pivot_table(index='userId', columns='movieID', values='rating').fillna(0)
 
     # Fit a KNN model using cosine similarity to identify similar users
     knn_model = NearestNeighbors(metric='cosine', algorithm='brute')
@@ -58,7 +58,7 @@ def recommend_movies_for_user(user_id, df_ratings, df_movies, n_neighbors=5, n_r
     # Map internal movieIDs back to actual titles for display
     recommendations = []
     for movie_id, score in sorted_recs:
-        title_row = df_movies[df_movies['movieId'] == movie_id]
+        title_row = df_movies[df_movies['movieID'] == movie_id]
         if not title_row.empty:
             title = title_row['title'].values[0]
             recommendations.append((title, score))

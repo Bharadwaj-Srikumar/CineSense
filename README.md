@@ -1,60 +1,56 @@
-# IMDB Movie Recommender System
+# CineSense: Movie Recommender System
 
-An interactive movie recommender system using collaborative filtering (K-Nearest Neighbors). It is built with Streamlit and fetches movie data from a MongoDB Atlas database. The application simulates user ratings and generates personalized movie recommendations based on user similarity.
+An interactive movie recommender system using collaborative filtering (K-Nearest Neighbors). Built with Streamlit, the app now uses real user ratings from the MovieLens dataset to generate personalized movie recommendations based on user similarity.
 
 ## Features
-
-- Loads IMDB-style movie data from MongoDB
-- Simulates ratings from 100 random users
+- Loads movie metadata from the MovieLens dataset
+- Uses real user ratings from MovieLens (ratings.csv)
 - Recommends movies using collaborative filtering (KNN with cosine similarity)
-- Built with Streamlit and deployable to Streamlit Cloud
-- Secure MongoDB URI management using Streamlit secrets
+- Interactive frontend built with Streamlit
+- Deployable to Streamlit Cloud
 
 ## Technologies Used
-
 - Python
 - Pandas, NumPy, scikit-learn
 - Streamlit
-- MongoDB (with pymongo)
-- K-Nearest Neighbors algorithm
+- MovieLens dataset (CSV)
+- K-Nearest Neighbors algorithm (collaborative filtering)
 
 ## How It Works
+- Data Loading: The application loads movie metadata (movies.csv) and user ratings (ratings.csv) from the MovieLens "latest small" dataset.
+- User-Item Matrix Creation: A sparse user-item rating matrix is constructed using real user ratings.
+- Collaborative Filtering: KNN (cosine similarity) is applied to find similar users and predict unseen movie ratings.
+- Recommendations: Top N movies are recommended based on nearest neighbors’ ratings and unseen titles.
 
-1. **Data Loading**: The application fetches movie data from a MongoDB collection.
-2. **User Simulation**: Randomized ratings are generated for 100 synthetic users, each rating between 20 to 50 movies.
-3. **Collaborative Filtering**: A user-item matrix is built, and KNN is used to find similar users based on cosine similarity.
-4. **Recommendations**: Unrated movies are scored based on neighbors' ratings and recommended accordingly.
+## Dataset Used
+This app uses the official MovieLens "latest small" dataset (100,000+ real ratings):
+
+🔗 https://files.grouplens.org/datasets/movielens/ml-latest-small.zip
+
+- Extract ratings.csv and movies.csv into the project root.
 
 ## Streamlit Cloud Deployment
-
-This app is designed to run directly on [Streamlit Cloud](https://streamlit.io/cloud).
-
+This app is ready to run on Streamlit Cloud.
 
 ### Secrets Configuration
+On Streamlit Cloud, define secrets under App settings > Secrets (optional, if using MongoDB):
 
-On **Streamlit Cloud**, you should define the following secret in the app's dashboard under **App settings > Secrets**:
+MONGODB_URI = "your-mongodb-connection-uri"
 
-MONGODB_URI = "mongodb-connection-uri"
+## Run Locally
 
-### How to run it on your own machine
+### Clone the repository:
+git clone https://github.com/Bharadwaj-Srikumar/CineSense.git
 
-1. Clone the repository
 
-   ```
-   git clone https://github.com/Bharadwaj-Srikumar/CineSense.git
-   
-   cd imdb-recommender
-   ```
+cd imdb-recommender
 
-2. Run the app
+### Run the Streamlit app:
+streamlit run streamlit_app.py
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
 ## Future Enhancements
-
-- Integrate real user login and actual rating collection
-- Add support for content-based filtering
-- Replace synthetic ratings with real-world datasets (e.g., MovieLens)
-- Include recommendation explanations or similarity visualizations
-- Add persistent recommendation logs using MongoDB
+- Integrate real user login and personal rating history
+- Add content-based filtering (genres, descriptions, tags)
+- Visualize user similarity and recommendation reasons
+- Store favorite movies or watchlists using MongoDB
+- Add hybrid recommender (collaborative + content)
