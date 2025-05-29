@@ -6,10 +6,8 @@ from pymongo import MongoClient
 from urllib.parse import quote_plus
 from collections import defaultdict
 
-# MongoDB Atlas credentials (use environment variables in production)
-username = quote_plus("Bharad")
-password = quote_plus("Brad@CineSense1.")
-uri = f"mongodb+srv://{username}:{password}@cluster0.xr2tvbu.mongodb.net/?retryWrites=true&w=majority"
+# Read secret
+uri = st.secrets["MONGODB_URI"]
 
 # Cache MongoDB data (loaded once per session)
 @st.cache_data
